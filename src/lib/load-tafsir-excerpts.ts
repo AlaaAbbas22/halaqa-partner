@@ -13,10 +13,10 @@ function assertVerseKey(key: string): VerseKey | null {
   return key.trim() as VerseKey;
 }
 
-async function runBatched<T>(
-  items: string[],
+async function runBatched<K extends string, T>(
+  items: readonly K[],
   batchSize: number,
-  fn: (item: string) => Promise<T>,
+  fn: (item: K) => Promise<T>,
 ): Promise<T[]> {
   const out: T[] = [];
   for (let i = 0; i < items.length; i += batchSize) {
