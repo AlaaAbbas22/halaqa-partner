@@ -32,7 +32,7 @@ cp .env.example .env.local
 | `GEMINI_API_KEY` | Required. Gemini key from Google AI Studio. |
 | `GEMINI_MODEL` | Optional. Default in app: `gemini-2.5-flash`. |
 | `QURAN_CLIENT_ID` / `QURAN_CLIENT_SECRET` | Required for `@quranjs/api`. |
-| `QURAN_OAUTH2_BASE_URL` | Optional. Default: `https://oauth2.quran.foundation`. |
+| `QURAN_OAUTH2_BASE_URL` | Required. OAuth token base URL from your Quran API / portal (do not commit). |
 | `TAFSIR_RESOURCE_IDS` | Optional. Comma-separated defaults if the UI sends none (e.g. `171`). |
 
 ## Run locally
@@ -58,5 +58,6 @@ Next.js (App Router), React, TypeScript, Tailwind CSS v4, `@google/generative-ai
 
 ## Notes
 
-- Keep **secrets in `.env.local`** only; it is gitignored. Do not commit API keys.
+- Keep **secrets in `.env.local`** (or the host’s env UI) only; do not commit API keys.
+- **Netlify:** `QURAN_OAUTH2_BASE_URL` must be set in site environment variables. The repo includes `netlify.toml` with `SECRETS_SCAN_OMIT_KEYS` for that name so builds do not fail when Next inlines its value into server chunks (the OAuth host is public, but Netlify still treats configured env values as secrets).
 - Tafsir resource IDs vary by environment; use `GET /api/tafsirs` to see what your credentials return.

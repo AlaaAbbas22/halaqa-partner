@@ -1,0 +1,4 @@
+# Next inlines server env into chunks; this host is public but Netlify flags it if
+# stored as a “secret” env var. Omit from the strict substring scan on build output.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "QURAN_OAUTH2_BASE_URL"

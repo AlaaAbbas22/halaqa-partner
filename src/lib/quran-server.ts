@@ -14,8 +14,12 @@ export function getQuranServerClient(): QuranServerClient {
     );
   }
   if (!cached) {
-    const oauth2BaseUrl =
-      process.env.QURAN_OAUTH2_BASE_URL ?? "https://oauth2.quran.foundation";
+    const oauth2BaseUrl = process.env.QURAN_OAUTH2_BASE_URL?.trim();
+    if (!oauth2BaseUrl) {
+      throw new Error(
+        "Set QURAN_OAUTH2_BASE_URL to the OAuth token host from your Quran API project (see api.quran.com dashboard).",
+      );
+    }
     cached = createServerClient({
       clientId,
       clientSecret,
